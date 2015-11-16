@@ -20,6 +20,18 @@
 #include <stdbool.h>
 
 
+
+int calcStringLength( /*in*/ char *value);
+int calSumIn( /*in*/ char *first, /*in*/ char *second);
+void stringAddition(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2);
+void stringSubtraction(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2);
+void stringDivision(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2);
+void stringMultiplication(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2);
+
+
+
+
+
 // Calculates the the size of the array that is passed in.
 // pre: array allocated
 // post: count of array values returned.
@@ -80,8 +92,9 @@ void stringAddition(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2) {
             int valo = array[i - size1] - 96;
 
             array[i - size1] = vali + valo + 96;
+            
             if (vali + valo + 96 > 122) {
-                array[i - size1] -= 58;
+                array[i - size1] = valo + 64;
             }
         }
        
@@ -103,7 +116,7 @@ void stringAddition(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2) {
             array[i + size1] = vali + valo + 96;
             
             if (vali + valo + 96 > 122) {
-                array[i + size1] -= 58;
+                array[i + size1] = vali + 64;
             }
             
         }
