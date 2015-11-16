@@ -558,7 +558,8 @@ int main( /*in*/ int argc, /*in*/char *argv[] ) {
         
         bool correct = true;
         
-        for (int i = 0; i < size1 + size2; i++) {
+        int i;
+        for (i = 0; i < size1 + size2; i++) {
             int theChar = summ[i] - 96;
             
             if (theChar < 1 || theChar > 26) {
