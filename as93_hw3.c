@@ -10,7 +10,15 @@
         I then check for the second argument which will be +, -, /, or x.
         Depending on the second argument, I call the appropriate method which will do the calculation and then print the result.
  
+ 
+ 
+    EXTRA CREDIT:
+        Takes the first char to the power of the second char.
+ 
 */
+
+
+
 
 
 
@@ -21,12 +29,19 @@
 
 
 
+
+
+
 int calcStringLength( /*in*/ char *value);
 int calSumIn( /*in*/ char *first, /*in*/ char *second);
 void stringAddition(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2);
 void stringSubtraction(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2);
 void stringDivision(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2);
 void stringMultiplication(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2);
+int power( /*in*/ int x, /*in*/ int y);
+void stringPower(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2);
+
+
 
 
 
@@ -47,6 +62,13 @@ int calcStringLength( /*in*/ char *value) //Function to calculate length of give
 }
 
 
+
+
+
+
+
+
+
 //Calculates the combined size of the two parameters.
 // pre: first (array) allocated, second (array) allocated
 // post: count (strsize) of all characters in both arrays.
@@ -58,6 +80,13 @@ int calSumIn( /*in*/ char *first, /*in*/ char *second) {
     
     return strsize;
 }
+
+
+
+
+
+
+
 
 
 // Adds the two command line values and then prints out the sum.
@@ -131,6 +160,13 @@ void stringAddition(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2) {
     }
     printf("\n");
 }
+
+
+
+
+
+
+
 
 
 
@@ -216,6 +252,14 @@ void stringSubtraction(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2
 }
 
 
+
+
+
+
+
+
+
+
 // Divides the first command-line argument by the second and then prints.
 // pre: an allocted array, size of array == (size1 + size2).
 // post: array values (either first part or second) change and part of the array is printed out.
@@ -294,6 +338,14 @@ void stringDivision(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2) {
 }
 
 
+
+
+
+
+
+
+
+
 // Multiplies the two command-line strings and then prints the product.
 // pre: an allocted array, size of array == (size1 + size2).
 // post: array values (either first part or second) change and part of the array is printed out.
@@ -359,10 +411,115 @@ void stringMultiplication(/*inout*/ char* array, /*in*/ int size1, /*in*/ int si
         printf("\n\n");
         
     }
-
-
     
 }
+
+
+
+
+
+
+
+
+
+//This function takes a number to a power.
+// pre: two integers
+// post: the first integer multiplied by itself a [second integer] number of times.
+//
+int power( /*in*/ int x, /*in*/ int y) {
+    int returner = 1;
+    while (y--) {
+        returner = returner * x;
+    }
+    return returner;
+}
+
+
+
+
+
+
+
+
+
+// Takes the first char to the power of the second char.
+// pre: an allocted array, size of array == (size1 + size2).
+// post: array values (either first part or second) change and part of the array is printed out.
+//
+void stringPower(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2) {
+    
+    int j;
+    for (j = 0; j < size1; j++) { //print the first part
+        printf("%c", array[j]);
+    }
+    
+    printf(" ^ "); //print the middle
+    
+    for (j = size1; j < size1 + size2; j++) { //print the second part
+        printf("%c", array[j]);
+    }
+    
+    printf(" => "); //print the arrow
+
+    
+    if (size1 >= size2) {
+        
+        int i;
+        for (i = size1; i < size1 + size2; i++) {
+            
+            int vali = array[i] - 96;
+            int valo = array[i - size1] - 96;
+            
+            array[i - size1] = power(valo, vali) + 96;
+            
+       
+            
+            if ( power(valo, vali) > 26 ) {
+                array[i - size1] = valo + 64;
+            }
+        }
+        
+        for (j = 0; j < size1; j++) { //print out the final set of characters
+            printf("%c", array[j]);
+        }
+        printf("\n\n");
+        
+        
+        
+    } else {
+        
+        int i;
+        for (i = 0; i < size1; i ++) {
+            
+            int valo = array[i] - 96;
+            int vali = array[i + size1] - 96;
+            
+            array[i] = power(valo, vali) + 96;
+            
+            if ( power (valo, vali) > 26) {
+                array[i] = valo + 64;
+            }
+        }
+        
+        for (j = 0; j < size1; j++) { //print out the first set of characters
+            printf("%c", array[j]);
+        }
+        
+        for (j= size1*2 ; j < size1 + size2; j++) {
+              printf("%c", array[j]);
+        }
+        
+        printf("\n\n");
+        
+    }
+    
+}
+
+
+
+
+
+
 
 
 
@@ -377,7 +534,7 @@ int main( /*in*/ int argc, /*in*/char *argv[] ) {
     
     //expecting three arguments plus the name of the program.
     if ( argc != 4) {
-        printf("Wrong number of arguments\n");
+        printf("bad input\n");
     } else {
         
         //find the combined size of the two arguments.
@@ -424,6 +581,9 @@ int main( /*in*/ int argc, /*in*/char *argv[] ) {
             } else if (middle[0] == 'x') { //it must be x
                 stringMultiplication(summ, size1, size2);
             
+            } else if (middle[0] == '^') {
+                stringPower(summ, size1, size2);
+                
             } else {
                 printf("bad input\n");
                 
