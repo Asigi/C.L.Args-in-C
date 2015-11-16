@@ -5,8 +5,10 @@
     Homework 3
 
     Comment explaining my logic:
- 
- 
+        This program takes in three arguments at the command line.
+        I take the first and third argument (which are strings) and then concatenate them together on one larger array (which is sized to be the combined size of the first and third argument).
+        I then check for the second argument which will be +, -, /, or x.
+        Depending on the second argument, I call the appropriate method which will do the calculation and then print the result.
  
 */
 
@@ -18,8 +20,11 @@
 #include <stdbool.h>
 
 
-
-int calcStringLength(char *value) //Function to calculate length of given string
+// Calculates the the size of the array that is passed in.
+// pre: array allocated
+// post: count of array values returned.
+//
+int calcStringLength( /*in*/ char *value) //Function to calculate length of given string
 {
     int i;
     for(i=0; value[i]!='\0'; i++) {
@@ -31,6 +36,9 @@ int calcStringLength(char *value) //Function to calculate length of given string
 
 
 //Calculates the combined size of the two parameters.
+// pre:
+// post:
+//
 int calSumIn(char *first, char *second) {
     int strsize = 0;
     strsize += calcStringLength(first);
@@ -40,7 +48,10 @@ int calSumIn(char *first, char *second) {
 }
 
 
-
+// Adds the two command line values and then prints out the sum.
+// pre:
+// post:
+//
 void stringAddition(char* array, int size1, int size2) {
     
     int j;
@@ -110,6 +121,10 @@ void stringAddition(char* array, int size1, int size2) {
 
 
 
+// Subtracts the two command line string and then prints the difference.
+// pre:
+// post:
+//
 void stringSubtraction(char* array, int size1, int size2) {
    
     
@@ -127,7 +142,6 @@ void stringSubtraction(char* array, int size1, int size2) {
     printf(" => "); //print the arrow
     
     
-    
 
     //----------The following part prints out the end result----------
 
@@ -139,7 +153,7 @@ void stringSubtraction(char* array, int size1, int size2) {
             
             int vali = array[i] - 96;
             int valo = array[i - size1] - 96;
-
+            
             array[i - size1] = valo - vali + 96;
             
             if (valo - vali <= 0) {
@@ -147,6 +161,8 @@ void stringSubtraction(char* array, int size1, int size2) {
                 array[i - size1] = valo + 64;
             }
         }
+
+     
         
         for (j = 0; j < size1; j++) { //print out the final set of characters
             printf("%c", array[j]);
@@ -155,17 +171,42 @@ void stringSubtraction(char* array, int size1, int size2) {
         
         
     } else {
-        //dont subtract the first part from the second part, because the input was first - second and NOT second - first.
+        //dont subtract the first part from the second part, because the input was first minus second and NOT second - first.
+        
+        int i;
+        for (i = size1; i < size1 + size1; i++) {
+            
+            int vali = array[i] - 96;
+            int valo = array[i - size1] - 96;
+            
+            array[i - size1] = valo - vali + 96;
+            
+            if (valo - vali <= 0) {
+                //If the result is outside the range 1-26 then the output character should be the uppercase version of the input caracter from the first string.
+                array[i - size1] = valo + 64;
+            }
+        }
         
         
-
+        for (j = 0; j < size1; j++) { //print out the final set of characters
+            printf("%c", array[j]);
+        }
+        
+        for (j = size1*2; j < size1 + size2; j++ ) { //print out rest from second input
+            printf("%c", array[j]);
+        }
+        
+        printf("\n\n");
         
     }
-
     
 }
 
 
+// Divides the first command-line argument by the second and then prints.
+// pre:
+// post:
+//
 void stringDivision(char* array, int size1, int size2) {
     
     int j;
@@ -212,7 +253,7 @@ void stringDivision(char* array, int size1, int size2) {
        
         
         int i;
-        for (i = size1; i < size1 + size2; i++) {
+        for (i = size1; i < size1 + size1; i++) {
             
             int vali = array[i] - 96;
             int valo = array[i - size1] - 96;
@@ -239,11 +280,74 @@ void stringDivision(char* array, int size1, int size2) {
     
 }
 
+
+// Multiplies the two command-line strings and then prints the product.
+// pre:
+// post:
+//
 void stringMultiplication(char* array, int size1, int size2) {
     
+    int j;
+    for (j = 0; j < size1; j++) { //print the first part
+        printf("%c", array[j]);
+    }
+    
+    printf(" x "); //print the middle
+    
+    for (j = size1; j < size1 + size2; j++) { //print the second part
+        printf("%c", array[j]);
+    }
+    
+    printf(" => "); //print the arrow
     
     
+    //----------The following part prints out the end result----------
     
+    
+    if (size1 >= size2) { //multiply the first part by the second part
+        
+        int i;
+        for (i = size1; i < size1 + size2; i++) {
+            
+            int vali = array[i] - 96;
+            int valo = array[i - size1] - 96;
+            
+            array[i - size1] = vali * valo + 96;
+            
+            if (vali * valo > 26) {
+                array[i - size1] = valo + 64;
+            }
+        }
+        
+        for (j = 0; j < size1; j++) { //print out the final set of characters
+            printf("%c", array[j]);
+        }
+        printf("\n\n");
+        
+        
+    } else { //multiply the second part by the first part.
+        
+        int i;
+        for (i = 0; i < size1; i ++) {
+            
+            int vali = array[i] - 96;
+            int valo = array[i + size1] - 96;
+            
+            array[i + size1] = vali * valo + 96;
+            
+            if (vali * valo > 26) {
+                array[i + size1] = vali + 64;
+            }
+        }
+        
+        for (j = size1; j < size1 + size2; j++) { //print out the final set of characters
+            printf("%c", array[j]);
+        }
+        printf("\n\n");
+        
+    }
+
+
     
 }
 
@@ -274,28 +378,43 @@ int main( int argc, char *argv[] ) {
         char *middle = argv[2]; //retreive the mathamatic symbol in the middle
    
         
-        
-        
-        //TODO check if either part has a capitol letter
+        //check if either part has a capitol letter
         //if so then print bad input and end program.
         //else continue.
         
+        bool correct = true;
         
+        for (int i = 0; i < size1 + size2; i++) {
+            int theChar = summ[i] - 96;
+            
+            if (theChar < 1 || theChar > 26) {
+                correct = false;
+                break;
+            }
+        }
         
-        if (middle[0] == '+') {
-            stringAddition(summ, size1, size2);
+        if (correct) {
+        
+            if (middle[0] == '+') {
+                stringAddition(summ, size1, size2);
             
-        } else if (middle[0] == '-') {
-            stringSubtraction(summ, size1, size2);
+            } else if (middle[0] == '-') {
+                stringSubtraction(summ, size1, size2);
             
-        } else if (middle[0] == '/') {
-            stringDivision(summ, size1, size2);
+            } else if (middle[0] == '/') {
+                stringDivision(summ, size1, size2);
             
-        } else if (middle[0] == 'x') { //it must be x
-            stringMultiplication(summ, size1, size2);
+            } else if (middle[0] == 'x') { //it must be x
+                stringMultiplication(summ, size1, size2);
+            
+            } else {
+                printf("bad input\n");
+                
+            }
             
         } else {
             printf("bad input\n");
+            
         }
     }
 }
