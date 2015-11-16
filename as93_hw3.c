@@ -36,10 +36,10 @@ int calcStringLength( /*in*/ char *value) //Function to calculate length of give
 
 
 //Calculates the combined size of the two parameters.
-// pre:
-// post:
+// pre: first (array) allocated, second (array) allocated
+// post: count (strsize) of all characters in both arrays.
 //
-int calSumIn(char *first, char *second) {
+int calSumIn( /*in*/ char *first, /*in*/ char *second) {
     int strsize = 0;
     strsize += calcStringLength(first);
     strsize += calcStringLength(second);
@@ -49,10 +49,10 @@ int calSumIn(char *first, char *second) {
 
 
 // Adds the two command line values and then prints out the sum.
-// pre:
-// post:
+// pre: an allocted array, size of array == (size1 + size2).
+// post: array values (either first part or second) change and part of the array is printed out.
 //
-void stringAddition(char* array, int size1, int size2) {
+void stringAddition(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2) {
     
     int j;
     for (j = 0; j < size1; j++) { //print the first part
@@ -122,10 +122,10 @@ void stringAddition(char* array, int size1, int size2) {
 
 
 // Subtracts the two command line string and then prints the difference.
-// pre:
-// post:
+// pre: an allocted array, size of array == (size1 + size2).
+// post: array values (either first part or second) change and part of the array is printed out.
 //
-void stringSubtraction(char* array, int size1, int size2) {
+void stringSubtraction(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2) {
    
     
     int j;
@@ -204,10 +204,10 @@ void stringSubtraction(char* array, int size1, int size2) {
 
 
 // Divides the first command-line argument by the second and then prints.
-// pre:
-// post:
+// pre: an allocted array, size of array == (size1 + size2).
+// post: array values (either first part or second) change and part of the array is printed out.
 //
-void stringDivision(char* array, int size1, int size2) {
+void stringDivision(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2) {
     
     int j;
     for (j = 0; j < size1; j++) { //print the first part
@@ -282,10 +282,10 @@ void stringDivision(char* array, int size1, int size2) {
 
 
 // Multiplies the two command-line strings and then prints the product.
-// pre:
-// post:
+// pre: an allocted array, size of array == (size1 + size2).
+// post: array values (either first part or second) change and part of the array is printed out.
 //
-void stringMultiplication(char* array, int size1, int size2) {
+void stringMultiplication(/*inout*/ char* array, /*in*/ int size1, /*in*/ int size2) {
     
     int j;
     for (j = 0; j < size1; j++) { //print the first part
@@ -353,10 +353,14 @@ void stringMultiplication(char* array, int size1, int size2) {
 
 
 
-
+//The main method which starts everything.
+//Pre:
 //argc is 1 plus the number of arguments passed in
 //argv contains pointers ( at argv[1] to argv[n] ) that point to the arguments
-int main( int argc, char *argv[] ) {
+//
+//Post: none
+//
+int main( /*in*/ int argc, /*in*/char *argv[] ) {
     
     //expecting three arguments plus the name of the program.
     if ( argc != 4) {
@@ -418,28 +422,6 @@ int main( int argc, char *argv[] ) {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-/**
- 
- //take the first argument and store it in one array
- int length = calcStringLength(argv[1]);
- char firstArray[length];
- int j;
- for (j = 0; j < length; j++) {
- //firstArray[j] =
- }
- //take the third argument and store it in a second array.
- 
- **/
 
 
 
